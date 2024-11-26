@@ -48,6 +48,12 @@ namespace Settings
         static REX::INI::F32 fCombatStaminaRate{"Conditions", "fCombatStaminaRateMult", -1.00f};
         static REX::INI::F32 fCombatMagickaRate{"Conditions", "fCombatMagickaRateMult", -1.00f};
 
+        static REX::INI::F32 fMidAirHealRate{ "Conditions", "fMidAirHealRate", -1.00f };
+        static REX::INI::F32 fMidAirStaminaRate{ "Conditions", "fMidAirStaminaRate", -1.00f };
+        static REX::INI::F32 fMidAirMagickaRate{ "Conditions", "fMidAirMagickaRate", -1.00f };
+
+        static REX::INI::Bool bExcludeDragons{ "Toggles", "bExcludeDragons", false };
+
     }    
 
     static void Update()

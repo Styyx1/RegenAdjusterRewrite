@@ -47,6 +47,9 @@ namespace Hooks
 		if (p->IsSwimming()) {
 			h_rate = fSwimHealRate.GetValue(), s_rate = fSwimStaminaRate.GetValue(), m_rate = fSwimMagickaRate.GetValue();
 		}
+		if (p->IsInMidair()) {
+			h_rate = fMidAirHealRate.GetValue(), s_rate = fMidAirStaminaRate.GetValue(), m_rate = fMidAirMagickaRate.GetValue();
+		}
 
 		p->SetActorValue(RE::ActorValue::kHealRate, h_rate);
 		p->SetActorValue(RE::ActorValue::kStaminaRate, s_rate);
@@ -62,6 +65,12 @@ namespace Hooks
 
 	void NPCUpdate::UpdateLoopNPC(RE::Character* a_this, float a_delta)
 	{
+		if (bExcludeDragons.GetValue()) {
+			if (a_this->IsDragon()) {
+				return func(a_this, a_delta);
+			}			
+		}
+
 		float h_rate = fHealRate.GetValue(), s_rate = fStaminaRate.GetValue(), m_rate = fMagickaRate.GetValue();
 
 		if (a_this->IsSneaking()) {
@@ -78,6 +87,9 @@ namespace Hooks
 		}
 		if (a_this->IsSwimming()) {
 			h_rate = fSwimHealRate.GetValue(), s_rate = fSwimStaminaRate.GetValue(), m_rate = fSwimMagickaRate.GetValue();
+		}
+		if (a_this->IsInMidair()) {
+			h_rate = fMidAirHealRate.GetValue(), s_rate = fMidAirStaminaRate.GetValue(), m_rate = fMidAirMagickaRate.GetValue();
 		}
 
 		a_this->SetActorValue(RE::ActorValue::kHealRate, h_rate);
