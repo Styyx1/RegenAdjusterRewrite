@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Settings.h"
+#include "gmst.h"
 
 namespace RegenAdjuster
 {
@@ -32,6 +33,14 @@ namespace RegenAdjuster
 		static void UpdateSettings(RE::StaticFunctionTag*)
 		{
 			Settings::Update();
+		}
+		static void ApplyGameSettings(RE::StaticFunctionTag*)
+		{
+			GMST::SetSettings();
+		}
+		static bool ShouldApplyGameSettings(RE::StaticFunctionTag*)
+		{
+			return Settings::Values::bChangeGameSettings.GetValue();
 		}
 	};
 }
