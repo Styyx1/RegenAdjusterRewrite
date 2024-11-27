@@ -58,7 +58,6 @@ after_build(function(target)
                 os.mkdir(plugins)
                 os.trycp(target:targetfile(), plugins)
                 os.trycp(target:symbolfile(), plugins)
-                os.trycp("$(projectdir)/release/*.ini", plugins)
             end
         end
     end
