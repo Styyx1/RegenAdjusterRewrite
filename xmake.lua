@@ -30,7 +30,11 @@ set_config("rex_ini", true)
 target("regen-adjuster-re")
     -- add dependencies to target
     add_deps("commonlibsse")
-
+    if has_config("skyrim_ae") then
+        set_targetdir("/build/SkyrimAE/skse/plugins")
+    else
+        set_targetdir("/build/SkyrimSE/skse/plugins")
+    end 
     -- add commonlibsse plugin
     add_rules("commonlibsse.plugin", {
         name = "regen-adjuster-re",
