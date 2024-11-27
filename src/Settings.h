@@ -8,22 +8,25 @@ namespace Settings
         static REX::INI::F32 fStaminaRate{"Base", "fStaminaRate", -1.00f};
         static REX::INI::F32 fMagickaRate{ "Base", "fMagickaRate", -1.00f };
 
-        static REX::INI::F32 fHealthRegenDelay{ "Base", "fHealthRegenDelayMax", -1.00f };
-        static REX::INI::F32 fDmgHealthRegenDelay{ "Base", "fDamagedHealthRegenDelay", -1.00f };
+        static REX::INI::F32 fHealthRegenDelay{ "GameSettings", "fHealthRegenDelayMax", -1.00f };
+        static REX::INI::F32 fDmgHealthRegenDelay{ "GameSettings", "fDamagedHealthRegenDelay", -1.00f };
 
-        static REX::INI::F32 fStaminaRegenDelay{"Base", "fStaminaRegenDelayMax", -1.00f};
-        static REX::INI::F32 fDmgStaminaRegenDelay{"Base", "fDamagedStaminaRegenDelay", -1.00f};
+        static REX::INI::F32 fStaminaRegenDelay{"GameSettings", "fStaminaRegenDelayMax", -1.00f};
+        static REX::INI::F32 fDmgStaminaRegenDelay{"GameSettings", "fDamagedStaminaRegenDelay", -1.00f};
 
-        static REX::INI::F32 fMagickaRegenDelay{"Base", "fMagickaRegenDelayMax", -1.00f};
-        static REX::INI::F32 fDmgMagickaRegenDelay{"Base", "fDamagedMagickaRegenDelay", -1.00f};
+        static REX::INI::F32 fMagickaRegenDelay{"GameSettings", "fMagickaRegenDelayMax", -1.00f};
+        static REX::INI::F32 fDmgMagickaRegenDelay{"GameSettings", "fDamagedMagickaRegenDelay", -1.00f};
 
-        static REX::INI::F32 fPowerAttackStaminaPenalty{"Base", "fPowerAttackStaminaPenalty", -1.00f};
+        static REX::INI::F32 fPowerAttackStaminaPenalty{"GameSettings", "fPowerAttackStaminaPenalty", -1.00f};
 
-        static REX::INI::F32 fSprintStaminaDrainMult{"Base", "fSprintStaminaDrainMult", -1.00f};
-        static REX::INI::F32 fSprintStaminaWeightBase{"Base", "fSprintStaminaWeightBase", -1.00f};
-        static REX::INI::F32 fSprintStaminaWeightMult{"Base", "fSprintStaminaWeightMult", -1.00f};
+        static REX::INI::F32 fSprintStaminaDrainMult{"GameSettings", "fSprintStaminaDrainMult", -1.00f};
+        static REX::INI::F32 fSprintStaminaWeightBase{"GameSettings", "fSprintStaminaWeightBase", -1.00f};
+        static REX::INI::F32 fSprintStaminaWeightMult{"GameSettings", "fSprintStaminaWeightMult", -1.00f};
 
-        static REX::INI::F32 fOutOfBreath{"Base", "fOutOfBreathStaminaRegenDelay", -1.00f};
+        static REX::INI::F32 fOutOfBreath{"GameSettings", "fOutOfBreathStaminaRegenDelay", -1.00f};
+
+        static REX::INI::F32 fCombatStaminaRate{"GameSettings", "fCombatStaminaRateMult", -1.00f};
+        static REX::INI::F32 fCombatMagickaRate{"GameSettings", "fCombatMagickaRateMult", -1.00f};
 
         static REX::INI::F32 fIdleHealRate{"Conditions", "fSneakHealRate", -1.00f};
         static REX::INI::F32 fIdleStaminaRate{"Conditions", "fSneakStaminaRate", -1.00f};
@@ -44,23 +47,27 @@ namespace Settings
         static REX::INI::F32 fSwimStaminaRate{"Conditions", "fSwimStaminaRate", -1.00f};
         static REX::INI::F32 fSwimMagickaRate{"Conditions", "fSwimMagickaRate", -1.00f};
 
-        static REX::INI::F32 fCombatHealRate{"Conditions", "fCombatHealRateMult", -1.00f};
-        static REX::INI::F32 fCombatStaminaRate{"Conditions", "fCombatStaminaRateMult", -1.00f};
-        static REX::INI::F32 fCombatMagickaRate{"Conditions", "fCombatMagickaRateMult", -1.00f};
+        static REX::INI::F32 fCombatHealRate{"Conditions", "fCombatHealRateMult", -1.00f};       
 
         static REX::INI::F32 fMidAirHealRate{ "Conditions", "fMidAirHealRate", -1.00f };
         static REX::INI::F32 fMidAirStaminaRate{ "Conditions", "fMidAirStaminaRate", -1.00f };
         static REX::INI::F32 fMidAirMagickaRate{ "Conditions", "fMidAirMagickaRate", -1.00f };
 
         static REX::INI::Bool bExcludeDragons{ "Toggles", "bExcludeDragons", false };
-
-    }    
+        static REX::INI::Bool bOnlyPlayer{ "Toggles", "bOnlyPlayer", false };
+        static REX::INI::Bool bOnlyHumanoids{ "Toggles", "bOnlyHumanoids", false };
+        static REX::INI::Bool bExcludePlayer{ "Toggles", "bExcludePlayer", false };
+        static REX::INI::Bool bUseRaceFlag{ "Toggles", "bUseRaceFlag", false };
+        static REX::INI::Bool bChangeGameSettings{ "Toggles", "bChangeGameSettings", true };
+    }
 
     static void Update()
     {
+        logs::info("Loading settings...");
         const auto ini = REX::INI::SettingStore::GetSingleton();
-        ini->Init("Data/SKSE/Plugins/regen-adjuster.ini", "Data/SKSE/Plugins/regen-adjuster-custom.ini");
+        ini->Init("Data/MCM/Config/regenadjuster/settings.ini", "Data/MCM/Settings/regenadjuster.ini");
         ini->Load();
+        logs::info("...Settings loaded");
     }
-
 }
+// Credits: https://github.com/shad0wshayd3-TES5/BakaBloodMagic/blob/main/src/BloodMagic/Settings.h

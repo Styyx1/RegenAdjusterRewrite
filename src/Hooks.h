@@ -18,6 +18,7 @@ namespace Hooks
 	public:
 		static void UpdateLoopNPC(RE::Character* a_this, float a_delta);
 		static void Install();
+		static void ChangeStats(RE::Character* a_this);
 	private:
 		static inline REL::Relocation<decltype(&UpdateLoopNPC)> func;
 	};
