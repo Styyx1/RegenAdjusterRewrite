@@ -84,15 +84,15 @@ namespace Hooks
 		a_this->SetActorValue(RE::ActorValue::kStaminaRate, s_rate);
 		a_this->SetActorValue(RE::ActorValue::kMagickaRate, m_rate);
 	}
+	//only install hooks when the settings allow it. Makes it incompatible with mid game changes though
 	void InstallHooks()
-	{
-		//only install hooks when the settings allow it. Makes it incompatible with mid game changes though
+	{		
 		if (!bExcludePlayer.GetValue()) {
 			PlayerUpdate::Install();
 		}		
 		if (!bOnlyPlayer.GetValue()) {
 			NPCUpdate::Install();
-		}		
+		}
 	}
 }
 

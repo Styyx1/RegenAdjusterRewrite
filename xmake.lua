@@ -49,15 +49,21 @@ target("regen-adjuster-re")
     set_pcxxheader("src/pch.h")
 
 add_extrafiles("release/**.ini")
+add_extrafiles("papyrus/**.psc")
+add_extrafiles("papyrus/**.pex")
 
 after_build(function(target)
     local copy = function(env, ext)
         for _, env in pairs(env:split(";")) do
             if os.exists(env) then
                 local plugins = path.join(env, ext, "SKSE/Plugins")
+                local dataSource = path.join(env, ext, "Source/Scripts")
+                local dataScripts = path.join(env, ext, "Scripts")
                 os.mkdir(plugins)
                 os.trycp(target:targetfile(), plugins)
                 os.trycp(target:symbolfile(), plugins)
+                os.trycp("$(projectdir)/papyrus/**.psc", dataSource)
+                os.trycp("$(projectdir)/papyrus/**.pex", dataScripts)
             end
         end
     end
